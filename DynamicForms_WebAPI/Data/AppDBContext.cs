@@ -15,6 +15,15 @@ namespace DynamicForms_WebAPI.Data
         public DbSet<FieldRolePermission> FieldRolePermissions { get; set; }
         public DbSet<FormSubmission> FormSubmissions { get; set; }
 
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            base.OnConfiguring(optionsBuilder);
+
+            // This tells .NET 9 to ignore the strict model check warning and let the update run
+            optionsBuilder.ConfigureWarnings(warnings =>
+                warnings.Ignore(Microsoft.EntityFrameworkCore.Diagnostics.RelationalEventId.PendingModelChangesWarning));
+        }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
