@@ -23,13 +23,13 @@
         public string FieldType { get; set; } = string.Empty; // Text, Number, Date, etc.
         public bool IsRequired { get; set; }
         public string? ValidationRules { get; set; } // The raw JSON string containing custom rules
-        public string PermissionLevel { get; set; } = string.Empty; // 'Write' or 'Read' (Hidden fields are filtered out entirely)
+        public string PermissionLevel { get; set; } = string.Empty;
     }
 
     // 4. Used to capture dynamic responses when a user clicks 'Submit' on a form
     public class SubmissionRequest
     {
         public int FormId { get; set; }
-        public string JsonData { get; set; } = string.Empty; // The stringified JSON payload from React
+        public string JsonData { get; set; } = string.Empty; 
     }
 }

@@ -21,7 +21,6 @@ namespace DynamicForms_WebAPI.Controllers
 
         // ==========================================================
         // Endpoint 1: Fetch dynamic fields filtered by user role
-        // GET: api/form/{formId}
         // ==========================================================
         [HttpGet("{formId}")]
         public async Task<IActionResult> GetFormMetadata(int formId)
@@ -76,7 +75,7 @@ namespace DynamicForms_WebAPI.Controllers
             {
                 FormId = request.FormId,
                 SubmittedBy = userId,
-                ResponseData = request.JsonData, // The raw stringified JSON object from React
+                ResponseData = request.JsonData,
                 SubmittedAt = DateTime.UtcNow,
                 UpdatedAt = DateTime.UtcNow
             };

@@ -6,7 +6,6 @@ namespace DynamicForms_WebAPI.Data
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
-        // Maps our C# classes to physical SQL Server Tables
         public DbSet<Role> Roles { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Form> Forms { get; set; }
@@ -39,12 +38,11 @@ namespace DynamicForms_WebAPI.Data
 
             // ==========================================
             // 2. SEED USERS
-            // (Keeping passwords simple for testing; will check against these during login)
             // ==========================================
             modelBuilder.Entity<User>().HasData(
-                new User { UserId = 1, Username = "admin_bob", PasswordHash = "password123", RoleId = 1 },
-                new User { UserId = 2, Username = "manager_alice", PasswordHash = "password123", RoleId = 2 },
-                new User { UserId = 3, Username = "user_charlie", PasswordHash = "password123", RoleId = 3 }
+                new User { UserId = 1, Username = "admin_akash", PasswordHash = "Admin@123", RoleId = 1 },
+                new User { UserId = 2, Username = "manager_Adas", PasswordHash = "ADAS@123", RoleId = 2 },
+                new User { UserId = 3, Username = "user_KPIT", PasswordHash = "KPIT@123", RoleId = 3 }
             );
 
             // ==========================================
