@@ -6,16 +6,14 @@ using DynamicForms_WebAPI.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// ==========================================================
-// 1. REGISTER SERVICES & DEPENDENCIES (Dependency Injection)
-// ==========================================================
+//Dependency Injection and Service Configuration
 
-// Add controllers to the container
+// Add services to the container
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(); // Provides a built-in UI layout to test your endpoints
 
-// Register our AppDbContext and hook it to the AppSettings connection string
+// AppDbContext configuration
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
@@ -23,7 +21,6 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 var jwtSettings = builder.Configuration.GetSection("Jwt");
 var secretKey = Encoding.UTF8.GetBytes(jwtSettings["Key"] ?? throw new InvalidOperationException("JWT Key is missing."));
 
-// Configure the Authentication Middleware Engine to intercept and process JWT Bearer tokens
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -44,16 +41,22 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
-// Activate basic authorization infrastructure
 builder.Services.AddAuthorization();
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowReactApp", policy =>
+    {
+        policy.WithOrigins("http://localhost:5173") // Allow your React dev server
+              .AllowAnyHeader()
+              .AllowAnyMethod();
+    });
+});
 
 var app = builder.Build();
 
-// ==========================================================
-// 2. CONFIGURE THE HTTP REQUEST PIPELINE (Middleware Order)
-// ==========================================================
+//Middleware pipeline configuration
 
-// Enable Swagger UI testing page if we are running in local development
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -62,9 +65,10 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-// ⚠️ CRITICAL MIDDLEWARE ORDER: You must Authenticate before you can Authorize!
-app.UseAuthentication(); // Intercepts requests: "Who are you? (Validates Token)"
-app.UseAuthorization();  // Processes permissions: "Are you allowed to execute this action?"
+app.UseCors("AllowReactApp");
+
+app.UseAuthentication(); 
+app.UseAuthorization();  
 
 app.MapControllers();
 

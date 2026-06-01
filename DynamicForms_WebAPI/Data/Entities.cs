@@ -40,7 +40,7 @@ namespace DynamicForms_WebAPI.Data
 
         [Required]
         [StringLength(100)]
-        public string FormName { get; set; } = string.Empty; // e.g., "Employee Onboarding Form"
+        public string FormName { get; set; } = string.Empty;
 
         public int CreatedBy { get; set; }
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
@@ -60,15 +60,15 @@ namespace DynamicForms_WebAPI.Data
 
         [Required]
         [StringLength(100)]
-        public string FieldName { get; set; } = string.Empty; // e.g., "Full Name", "Salary"
+        public string FieldName { get; set; } = string.Empty; 
 
         [Required]
         [StringLength(50)]
-        public string FieldType { get; set; } = string.Empty; // Text, Number, Dropdown, Date, Checkbox
+        public string FieldType { get; set; } = string.Empty; 
 
         public bool IsRequired { get; set; }
 
-        // Storing dynamic structural validation rules as a JSON string (e.g., {"min": 10, "max": 100})
+
         public string? ValidationRules { get; set; }
 
         public ICollection<FieldRolePermission> FieldRolePermissions { get; set; } = new List<FieldRolePermission>();
@@ -81,7 +81,7 @@ namespace DynamicForms_WebAPI.Data
 
         public int FormId { get; set; }
         public int RoleId { get; set; }
-        public bool IsVisible { get; set; } // Controls if a role can see the form at all
+        public bool IsVisible { get; set; } 
     }
 
     public class FieldRolePermission
@@ -110,7 +110,7 @@ namespace DynamicForms_WebAPI.Data
         public int SubmittedBy { get; set; }
 
         [Required]
-        public string ResponseData { get; set; } = string.Empty; // User answers saved as a dynamic JSON string
+        public string ResponseData { get; set; } = string.Empty;
 
         public DateTime SubmittedAt { get; set; } = DateTime.UtcNow;
         public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
