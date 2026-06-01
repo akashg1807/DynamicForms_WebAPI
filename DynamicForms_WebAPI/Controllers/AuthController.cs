@@ -45,7 +45,7 @@ namespace DynamicForms_WebAPI.Controllers
             {
                 new Claim(ClaimTypes.NameIdentifier, user.UserId.ToString()),
                 new Claim(ClaimTypes.Name, user.Username),
-                new Claim(ClaimTypes.Role, user.RoleId.ToString()) // Embedding RoleId so the API knows their rank instantly
+                new Claim(ClaimTypes.Role, user.RoleId.ToString()) 
             };
 
             // 5. Generate the Security Token Descriptor
