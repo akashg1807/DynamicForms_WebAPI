@@ -65,7 +65,7 @@ const Login = ({ onLoginSuccess }) => {
         </button>
         
         <div className="text-xs text-gray-500 mt-4 border-t pt-2 text-center">
-          Test users: admin_bob, manager_alice, user_charlie (Password: password123)
+          Test users: admin_akash, manager_Adas, user_KPIT
         </div>
       </form>
     </div>
